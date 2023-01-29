@@ -1,0 +1,3 @@
+[submodule "node-botvac"]
+	path = node-botvac
+	url = ../../scryptedapp/node-botvac.git
