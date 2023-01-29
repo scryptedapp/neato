@@ -1,0 +1,1 @@
+# Neato Plugin for Scrypted
