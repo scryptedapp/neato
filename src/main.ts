@@ -146,6 +146,9 @@ class NeatoController extends ScryptedDeviceBase implements DeviceProvider, Devi
         return this.robots.get(nativeId);
     }
 
+    async releaseDevice(id: string, nativeId: string): Promise<void> {
+    }
+
     updateRobots(robots: any) {
         const interfaces = [
             ScryptedInterface.StartStop,
@@ -182,7 +185,7 @@ class NeatoController extends ScryptedDeviceBase implements DeviceProvider, Devi
         const options = {
             clientId: '44f85521f7730c9f213f25f5e36f080d1e274414f6138ff23fab614faa34fd22',
             scopes: 'control_robots+maps',
-            redirectUrl: 'https://home.scrypted.app/oauth/callback'
+            redirectUrl: 'https://home.scrypted.app/web/oauth/callback'
         }
         const url = "https://apps.neatorobotics.com/oauth2/authorize?client_id=" + options["clientId"] + "&scope=" + options["scopes"] + "&response_type=token&redirect_uri=" + options["redirectUrl"];
 
