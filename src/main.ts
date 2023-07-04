@@ -1,4 +1,4 @@
-import sdk, { Camera, Device, DeviceDiscovery, DeviceProvider, Dock, MediaObject, Pause, PictureOptions, Refresh, ScryptedDeviceBase, ScryptedInterface, StartStop } from '@scrypted/sdk';
+import sdk, { Camera, Device, DeviceDiscovery, DeviceProvider, Dock, MediaObject, OauthClient, Pause, PictureOptions, Refresh, ScryptedDeviceBase, ScryptedInterface, StartStop } from '@scrypted/sdk';
 import axios from 'axios';
 import throttle from 'lodash/throttle';
 
@@ -95,7 +95,7 @@ class Neato extends ScryptedDeviceBase implements Refresh, StartStop, Pause, Doc
 }
 
 
-class NeatoController extends ScryptedDeviceBase implements DeviceProvider, DeviceDiscovery {
+class NeatoController extends ScryptedDeviceBase implements DeviceProvider, OauthClient {
     client = new botvac.Client();
     robots = new Map<string, Neato>();
 
@@ -181,7 +181,7 @@ class NeatoController extends ScryptedDeviceBase implements DeviceProvider, Devi
         });
     }
 
-    getOauthUrl() {
+    async getOauthUrl() {
         const options = {
             clientId: '44f85521f7730c9f213f25f5e36f080d1e274414f6138ff23fab614faa34fd22',
             scopes: 'control_robots+maps',
@@ -197,7 +197,7 @@ class NeatoController extends ScryptedDeviceBase implements DeviceProvider, Devi
         this.client._tokenType = 'Bearer ';
     }
 
-    onOauthCallback(callbackUrl) {
+    async onOauthCallback(callbackUrl: string) {
         const params = callbackUrl.split('#')[1].split("&");
 
         let token: string;
